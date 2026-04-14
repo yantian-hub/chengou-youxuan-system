@@ -1,0 +1,41 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: mail-service-cart
+  main:
+    allow-bean-definition-overriding: true
+  config:
+    import: optional:nacos:mail-service-cart.yaml
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: your_mysql_url
+    username: your_mysql_username
+    password: your_mysql_password
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: your_nacos_server_addr
+      config:
+        enabled: true
+        server-addr: your_nacos_server_addr
+        file-extension: yaml
+        group: DEFAULT_GROUP
+  data:
+    redis:
+      host: your_redis_host
+      port: 6379
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.cloud.mail.api.*.model
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

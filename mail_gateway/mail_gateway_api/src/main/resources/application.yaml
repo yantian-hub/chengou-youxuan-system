@@ -1,0 +1,66 @@
+server:
+  port: 10010
+
+spring:
+  application:
+    name: mail-gateway
+  config:
+    import: optional:nacos:mail-gateway.yaml
+  cloud:
+    nacos:
+      discovery:
+        server-addr: your-nacos-server-ip:8848
+      config:
+        server-addr: your-nacos-server-ip:8848
+        file-extension: yaml
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: mail-service-goods-route
+          uri: lb://mail-service-goods
+          predicates:
+            - Path=/goods/**
+        - id: mail-service-seckill-route
+          uri: lb://mail-service-seckill
+          predicates:
+            - Path=/seckill/**
+        - id: mail-service-order-route
+          uri: lb://mail-service-order
+          predicates:
+            - Path=/order/**
+        - id: mail-service-cart-route
+          uri: lb://mail-service-cart
+          predicates:
+            - Path=/cart/**
+        - id: mail-service-usr-route
+          uri: lb://mail-service-usr
+          predicates:
+            - Path=/usr/**
+        - id: mail-service-pay-route
+          uri: lb://mail-service-pay
+          predicates:
+            - Path=/pay/**
+    sentinel:
+      transport:
+        dashboard: your-sentinel-server-ip:8080
+        port: 8719
+      scg:
+        fallback:
+          mode: response
+          response-status: 429
+          response-body: '{"code":429,"message":"请求过于频繁，请稍后重试"}'
+
+  data:
+    redis:
+      host: your-redis-server-ip
+      port: 6379
+
+
+
+
+
+
+
