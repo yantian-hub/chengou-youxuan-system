@@ -1,0 +1,83 @@
+/* ========== 全局变量 ========== */
+:root {
+  --primary: #409eff;
+  --primary-dark: #2d7fd3;
+  --primary-gradient: linear-gradient(135deg, #409eff, #2d7fd3);
+  --danger: #e74c3c;
+  --danger-gradient: linear-gradient(135deg, #e74c3c, #c0392b);
+  --price: #ff6b35;
+  --bg: #f5f7fa;
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+/* ========== 全局样式 ========== */
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== 页面容器统一 ========== */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  animation: fadeInUp 0.3s ease;
+}
+
+/* ========== 卡片样式 ========== */
+.enhanced-card {
+  border-radius: var(--radius);
+  border: none;
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.enhanced-card:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* ========== 动画 ========== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ========== 滚动条 ========== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #c0c4cc;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #909399;
+}
+
+/* ========== Element Plus Overrides ========== */
+.el-card {
+  border-radius: var(--radius) !important;
+  border: none !important;
+}
+.el-button--primary {
+  --el-button-bg-color: var(--primary);
+}

@@ -1,0 +1,38 @@
+# === Maven ===
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# === IDE ===
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.class
+*.jar
+*.war
+
+# === OS ===
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# === Node.js / Frontend ===
+mail_web/node_modules/
+mail_web/dist/
+mail_web/.vite/
+mail_web/package-lock.json
+
+# === Env / Secrets ===
+.env
+.env.local
+*.pem
+
+# === Logs ===
+logs/
+*.log
+
+# === Git ===
+.git/

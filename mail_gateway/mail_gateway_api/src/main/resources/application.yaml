@@ -1,0 +1,85 @@
+server:
+  port: 10010
+
+spring:
+  application:
+    name: mail-gateway
+  config:
+    import: optional:nacos:mail-gateway.yaml
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDR:127.0.0.1:8848}
+      config:
+        server-addr: ${NACOS_ADDR:127.0.0.1:8848}
+        file-extension: yaml
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: mail-service-goods-route
+          uri: lb://mail-service-goods
+          predicates:
+            - Path=/goods/**
+          filters:
+            - StripPrefix=1
+        - id: mail-service-seckill-route
+          uri: lb://mail-service-seckill
+          predicates:
+            - Path=/seckill/**
+          filters:
+            - StripPrefix=1
+        - id: mail-service-order-route
+          uri: lb://mail-service-order
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=1
+        - id: mail-service-cart-route
+          uri: lb://mail-service-cart
+          predicates:
+            - Path=/cart/**
+          filters:
+            - StripPrefix=1
+        - id: mail-service-usr-route
+          uri: lb://mail-service-usr
+          predicates:
+            - Path=/usr/**
+          filters:
+            - StripPrefix=1
+        - id: mail-service-pay-route
+          uri: lb://mail-service-pay
+          predicates:
+            - Path=/pay/**
+          filters:
+            - StripPrefix=1
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+      scg:
+        fallback:
+          mode: response
+          response-status: 429
+          response-body: '{"code":429,"message":"请求过于频繁，请稍后重试"}'
+
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: 6379
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+
+
+
+
+
+
